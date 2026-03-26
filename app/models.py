@@ -1,0 +1,123 @@
+# This is an auto-generated Django model module.
+# You'll have to do the following manually to clean this up:
+#   * Rearrange models' order
+#   * Make sure each model has one field with primary_key=True
+#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
+#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
+# Feel free to rename the models, but don't rename db_table values or field names.
+from django.db import models
+
+
+class Carro(models.Model):
+    placa = models.CharField(unique=True, max_length=7)
+    modelo = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'carro'
+
+    def __str__(self):
+        return f"{self.modelo} - {self.placa}"
+
+
+class Cliente(models.Model):
+    nome = models.CharField(max_length=50)
+    saldo = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        managed = False
+        db_table = 'cliente'
+
+    def __str__(self):
+        return self.nome
+
+
+class ClienteCarroManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(ativo=True)
+
+class ClienteCarro(models.Model):
+    cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
+    carro = models.ForeignKey(Carro, models.DO_NOTHING)
+    ativo = models.BooleanField()
+
+    class Meta:
+        managed = False
+        db_table = 'cliente_carro'
+        unique_together = (('cliente', 'carro'),)
+
+    def __str__(self):
+        return f"{self.carro} ({self.cliente})"
+
+class ClienteCarroAtivo(ClienteCarro):
+    objects = ClienteCarroManager()
+
+    class Meta:
+        proxy = True
+
+class Estacionamento(models.Model):
+    cliente_carro = models.ForeignKey(ClienteCarroAtivo, models.DO_NOTHING)
+    vaga = models.ForeignKey('Vaga', models.DO_NOTHING)
+    entrada = models.DateTimeField()
+    saida = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'estacionamento'
+        unique_together = (('cliente_carro', 'vaga', 'entrada'),)
+
+
+class Contato(models.Model):
+    contatos = (
+        ('Celular', 'CELULAR'),
+        ('Email', 'EMAIL'),
+        ('WhatsApp', 'WHATSAPP'),
+    )
+    tipo_contato = models.TextField()  # This field type is a guess.
+    cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
+    informacao = models.CharField(max_length=50)
+
+    class Meta:
+        managed = False
+        db_table = 'contato'
+        unique_together = (('tipo_contato', 'cliente'),)
+
+    def __str__(self):
+        return f"{self.cliente} -{self.tipo_contato}"
+
+
+class Estacionamento(models.Model):
+    cliente_carro = models.ForeignKey(ClienteCarro, models.DO_NOTHING)
+    vaga = models.ForeignKey('Vaga', models.DO_NOTHING)
+    entrada = models.DateTimeField()
+    saida = models.DateTimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'estacionamento'
+        unique_together = (('cliente_carro', 'vaga', 'entrada'),)
+
+
+class Tipo(models.Model):
+    descricao = models.CharField(max_length=20)
+    valor = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'tipo'
+
+
+    def __str__(self):
+        return self.descricao
+
+
+class Vaga(models.Model):
+    numero = models.CharField(max_length=3)
+    tipo = models.ForeignKey(Tipo, models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'vaga'
+
+    def __str__(self):
+        return self.numero
