@@ -69,11 +69,11 @@ class Estacionamento(models.Model):
 
 class Contato(models.Model):
     contatos = (
-        ('Celular', 'CELULAR'),
-        ('Email', 'EMAIL'),
-        ('WhatsApp', 'WHATSAPP'),
+        ('CELULAR', 'Celular'),
+        ('EMAIL', 'Email'),
+        ('WHATSAPP', 'Whatsapp'),
     )
-    tipo_contato = models.TextField()  # This field type is a guess.
+    tipo_contato = models.CharField(max_length=10, choices=contatos, default='Celular')
     cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
     informacao = models.CharField(max_length=50)
 
@@ -84,18 +84,6 @@ class Contato(models.Model):
 
     def __str__(self):
         return f"{self.cliente} -{self.tipo_contato}"
-
-
-class Estacionamento(models.Model):
-    cliente_carro = models.ForeignKey(ClienteCarro, models.DO_NOTHING)
-    vaga = models.ForeignKey('Vaga', models.DO_NOTHING)
-    entrada = models.DateTimeField()
-    saida = models.DateTimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'estacionamento'
-        unique_together = (('cliente_carro', 'vaga', 'entrada'),)
 
 
 class Tipo(models.Model):
