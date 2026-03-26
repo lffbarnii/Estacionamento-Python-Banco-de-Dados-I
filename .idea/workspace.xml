@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6508fcea-fc2a-4f9e-99f5-e889b8b2ac2a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/estacionamento.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="6508fcea-fc2a-4f9e-99f5-e889b8b2ac2a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,7 +26,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "ai.playground.ignore.import.keys.banner.in.settings": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "settings.editor.selected.configurable": "configurable.group.python.tools.group.settings",
     "vue.rearranger.settings.migration": "true"
   }
@@ -59,7 +53,7 @@
       <option name="presentableId" value="Default" />
       <updated>1773964600984</updated>
       <workItem from="1773964602010" duration="2980000" />
-      <workItem from="1774562741444" duration="702000" />
+      <workItem from="1774562741444" duration="1014000" />
     </task>
     <servers />
   </component>
